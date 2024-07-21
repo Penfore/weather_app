@@ -20,16 +20,6 @@ class _HomePageState extends ModularInjector<HomePage, HomePageController> {
         centerTitle: true,
         title: const Text('Weather'),
       ),
-      drawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              TextButton(onPressed: () {}, child: const Text('Selected cities')),
-            ],
-          ),
-        ),
-      ),
       body: Obx(
         () => ListView.separated(
           padding: const EdgeInsets.all(8),
