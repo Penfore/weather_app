@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/app/core/core.dart';
+import 'package:weather_app/app/modules/home/home.dart';
 
 class CityCard extends StatelessWidget {
   const CityCard({
@@ -7,15 +9,20 @@ class CityCard extends StatelessWidget {
     required this.countryName,
     required this.currentTemperature,
     required this.currentWeatherCondition,
+    required this.dailyForecast,
   });
 
   final String cityName;
   final String countryName;
   final double currentTemperature;
   final String currentWeatherCondition;
+  final List<DailyForecastEntity> dailyForecast;
 
   @override
   Widget build(BuildContext context) {
+    final List<DailyForecastEntity> firstFiveDaysForecast =
+        dailyForecast.length > 5 ? dailyForecast.sublist(0, 5) : dailyForecast;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.blue[200],
@@ -24,93 +31,49 @@ class CityCard extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       width: double.infinity,
       height: 160,
-      child: const Column(
+      child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('City name: '),
-              Text('São Paulo, Brazil'),
+              const Text('City name: '),
+              Text('$cityName, $countryName'),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Current temperature: '),
-              Text('25C'),
+              const Text('Current temperature: '),
+              Text('$currentTemperature°C'),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Current weather: '),
-              Text('Raining'),
+              const Text('Current weather: '),
+              Text(currentWeatherCondition),
             ],
           ),
           Column(
             children: [
-              Text('Next 5 days condition: '),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  NextDayBox(
-                    day: 'seg.',
-                    temperature: '30',
-                    weatherCondition: 'sunny',
-                  ),
-                  NextDayBox(
-                    day: 'seg.',
-                    temperature: '30',
-                    weatherCondition: 'sunny',
-                  ),
-                  NextDayBox(
-                    day: 'seg.',
-                    temperature: '30',
-                    weatherCondition: 'sunny',
-                  ),
-                  NextDayBox(
-                    day: 'seg.',
-                    temperature: '30',
-                    weatherCondition: 'sunny',
-                  ),
-                  NextDayBox(
-                    day: 'seg.',
-                    temperature: '30',
-                    weatherCondition: 'sunny',
-                  ),
-                ],
+              const Text('Next 5 days condition: '),
+              SizedBox(
+                height: 60,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: firstFiveDaysForecast.map((forecast) {
+                    return NextDayBox(
+                      day: formatDate(forecast.date),
+                      temperature: '${forecast.temperature}°C',
+                      weatherCondition: forecast.weatherCondition,
+                    );
+                  }).toList(),
+                ),
               ),
             ],
           ),
         ],
       ),
-    );
-  }
-}
-
-class NextDayBox extends StatelessWidget {
-  const NextDayBox({
-    super.key,
-    required this.day,
-    required this.temperature,
-    required this.weatherCondition,
-  });
-
-  final String day;
-  final String temperature;
-  final String weatherCondition;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(day),
-        Text(temperature),
-        Text(
-          weatherCondition,
-          overflow: TextOverflow.ellipsis,
-        ),
-      ],
     );
   }
 }
