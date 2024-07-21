@@ -8,7 +8,7 @@ part of 'daily_forecast_model.dart';
 
 DailyForecastModel _$DailyForecastModelFromJson(Map<String, dynamic> json) =>
     DailyForecastModel(
-      dt: json['dt'] as String,
+      dt: (json['dt'] as num).toInt(),
       temp: TemperatureModel.fromJson(json['temp'] as Map<String, dynamic>),
       weather: (json['weather'] as List<dynamic>)
           .map((e) => WeatherConditionModel.fromJson(e as Map<String, dynamic>))

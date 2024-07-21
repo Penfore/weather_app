@@ -13,7 +13,7 @@ class DailyForecastModel {
   });
 
   /// Forecast date
-  final String dt;
+  final int dt;
 
   @JsonKey(name: 'temp')
   final TemperatureModel temp;

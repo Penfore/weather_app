@@ -39,7 +39,7 @@ class WeatherRepositoryImpl implements WeatherRepository {
     final List<DailyForecastEntity> dailyEntities = [];
     for (final forecast in weather.daily!) {
       final forecastEntity = DailyForecastEntity(
-        date: forecast.dt,
+        date: DateTime.fromMillisecondsSinceEpoch(forecast.dt * 1000),
         temperature: forecast.temp.day,
         weatherCondition: forecast.weather.first.main,
       );
@@ -47,8 +47,8 @@ class WeatherRepositoryImpl implements WeatherRepository {
     }
 
     return WeatherEntity(
-      currentTemperature: weather.temp!,
-      currentWeatherCondition: weather.main!,
+      currentTemperature: weather.current!.temp,
+      currentWeatherCondition: weather.current!.weather.first.main,
       dailyForecast: dailyEntities,
     );
   }

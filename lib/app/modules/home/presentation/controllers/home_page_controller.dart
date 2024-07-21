@@ -30,6 +30,7 @@ class HomePageController extends PageLifeCycleController {
           countryName: weather.city!.country,
           currentTemperature: weather.currentTemperature,
           currentWeatherCondition: weather.currentWeatherCondition,
+          dailyForecast: weather.dailyForecast!,
         );
         store.cityCards.add(card);
       }

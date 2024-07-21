@@ -8,23 +8,44 @@ class WeatherModel {
   WeatherModel({
     this.lat,
     this.lon,
-    this.temp,
-    this.main,
+    this.current,
     this.daily,
   });
 
   final double? lat;
   final double? lon;
-  final double? temp;
-
-  /// Current weather condition
-  final String? main;
+  final Current? current;
   @JsonKey(name: 'daily')
   final List<DailyForecastModel>? daily;
 
   bool checkIfAnyIsNull() {
-    return [lat, lon, temp, main].contains(null) || (daily?.isEmpty ?? true);
+    return [lat, lon, current].contains(null) || (daily?.isEmpty ?? true);
   }
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) => _$WeatherModelFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class Current {
+  Current({
+    required this.temp,
+    required this.weather,
+  });
+
+  final double temp;
+  final List<Weather> weather;
+
+  factory Current.fromJson(Map<String, dynamic> json) => _$CurrentFromJson(json);
+}
+
+@JsonSerializable(createToJson: false)
+class Weather {
+  Weather({
+    required this.main,
+  });
+
+  /// Current weather condition
+  final String main;
+
+  factory Weather.fromJson(Map<String, dynamic> json) => _$WeatherFromJson(json);
 }
