@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:searchfield/searchfield.dart';
 import 'package:weather_app/app/core/utils/modular_injector.dart';
+import 'package:weather_app/app/modules/home/domain/entities/weather_entity.dart';
 import 'package:weather_app/app/modules/home/presentation/controllers/home_page_controller.dart';
+import 'package:weather_app/app/modules/home/presentation/widgets/city_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,21 +16,75 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends ModularInjector<HomePage, HomePageController> {
   @override
   Widget build(BuildContext context) {
-    final cards = controller.store.cityCards;
+    List<CityCard> cards = controller.store.cityCards;
+    final weatherData = controller.store.weatherData;
+    final focusNode = FocusNode();
+    final textEditingController = TextEditingController();
+
+    Future<void> handleSearchFieldChange() async {
+      if (textEditingController.text.isEmpty) {
+        cards.clear();
+        controller.fetchWeatherList();
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Weather'),
-      ),
-      body: Obx(
-        () => ListView.separated(
-          padding: const EdgeInsets.all(8),
-          itemCount: cards.length,
-          separatorBuilder: (context, index) => const SizedBox(height: 16),
-          itemBuilder: (context, index) {
-            return cards[index];
+        leading: IconButton(
+          onPressed: () {
+            textEditingController.text = '';
+            handleSearchFieldChange();
           },
+          icon: const Icon(Icons.refresh),
+        ),
+      ),
+      body: GestureDetector(
+        onTap: () => focusNode.unfocus(),
+        child: Obx(
+          () => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SearchField(
+                      hint: 'Search for a city in the list',
+                      controller: textEditingController,
+                      onSuggestionTap: (weather) {
+                        cards.clear();
+                        cards.add(CityCard(weather: weather.item!));
+                        focusNode.unfocus();
+                      },
+                      focusNode: focusNode,
+                      suggestions: weatherData
+                          .map(
+                            (e) => SearchFieldListItem<WeatherEntity>(
+                              e.city!.name,
+                              item: e,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(e.city!.name),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                  ...cards.map(
+                    (e) => Column(
+                      children: [
+                        e,
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );
