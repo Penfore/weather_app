@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:weather_app/app/core/presentation/controllers/page_life_cycle_controller.dart';
 import 'package:weather_app/app/modules/home/domain/entities/weather_entity.dart';
@@ -41,6 +40,22 @@ class HomePageController extends PageLifeCycleController {
     }
   }
 
+  void unfocus() {
+    store.focusNode.unfocus();
+  }
+
+  Future<void> refreshPage() async {
+    store.searchFieldController.text = '';
+    await handleSearchFieldChange();
+  }
+
+  Future<void> handleSearchFieldChange() async {
+    if (store.searchFieldController.text.isEmpty) {
+      store.cityCards.clear();
+      await initialize();
+    }
+  }
+
   Future<bool> checkConnectivity() async {
     try {
       store.loading();
@@ -58,7 +73,6 @@ class HomePageController extends PageLifeCycleController {
       store.loading();
       for (var i = 0; i < store.cities.length; i++) {
         final weather = await storage.read(key: 'weather_data[$i]');
-        debugPrint('RESPOSTA $weather');
         if (weather != null) {
           store.weatherData.add(WeatherEntity.deserialize(weather));
         }
@@ -74,8 +88,7 @@ class HomePageController extends PageLifeCycleController {
       store.loading();
       for (var i = 0; i < store.cities.length; i++) {
         await storage.write(key: 'weather_data[$i]', value: WeatherEntity.serialize(store.weatherData[i]));
-        final response = await storage.read(key: 'weather_data[$i]');
-        debugPrint('RESPOSTA ${response!}');
+        await storage.read(key: 'weather_data[$i]');
       }
       store.completed();
     } on Exception catch (e) {
