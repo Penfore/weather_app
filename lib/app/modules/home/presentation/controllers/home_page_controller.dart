@@ -25,13 +25,7 @@ class HomePageController extends PageLifeCycleController {
       store.loading();
       store.weatherData = await fetchCityWeatherUseCase.call(citiesForms: store.cities);
       for (WeatherEntity weather in store.weatherData) {
-        final card = CityCard(
-          cityName: weather.city!.name,
-          countryName: weather.city!.country,
-          currentTemperature: weather.currentTemperature,
-          currentWeatherCondition: weather.currentWeatherCondition,
-          dailyForecast: weather.dailyForecast!,
-        );
+        final card = CityCard(weather: weather);
         store.cityCards.add(card);
       }
       store.completed();
