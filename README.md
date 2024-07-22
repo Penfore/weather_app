@@ -1,16 +1,46 @@
-# weather_app
+# Weather App
 
-A new Flutter project.
+## Objective
 
-## Getting Started
+To visualize the weather conditions of 4 major cities on Android. The app displays a card for each city with current temperature and weather condition and also the forecast for the next 5 days.
+The app also works offline, but a first successful connection is needed.
 
-This project is a starting point for a Flutter application.
+## Technologies Used
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter 3.22.3
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Requirements
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Flutter SDK 3.22.3](https://docs.flutter.dev/get-started/install)
+- [OpenWeather API account](https://openweathermap.org/api)
+  - You will need to register an account, fill the billing information and create or use the API Key.
+  - The reason for the need to fill the billing is because the app uses One Call API 3.0. You can use 1000 calls for free.
+
+### Steps to tun
+- Clone the repository and enter the folder with your terminal;
+- If you are using [VSCode](https://code.visualstudio.com/), create a `.vscode` in the root of the application folder;
+- Inside the `.vscode` folder, create a `launch.json` file and fill with this information:
+  - `{
+   "configurations": [
+        {
+            "name": "Weather App Production",
+            "request": "launch",
+            "type": "dart",
+            "toolArgs": [
+                "--dart-define",
+                "API_KEY={YOUR-API-KEY}"
+            ],
+        },
+    ]
+}`
+  - Chane `{YOUR-API-KEY}` for the key you got in the [OpeanWeather keys section](https://home.openweathermap.org/api_keys);
+  - Run `Flutter pub get` to install the dependencies;
+  - Run `dart run build_runner build` to generate the models;
+  - Press F5 if using VSCode.
+  - NOTICE: If you are not using VSCode, do not forget to use the `--dart-define` variable passing you key to the `API_KEY` variable, otherwise the app will not work.
+
+### Enjoy :D
+
+## License
+
+Software licensed under the [MIT license](https://opensource.org/licenses/MIT).
