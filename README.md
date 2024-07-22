@@ -2,8 +2,9 @@
 
 ## Objective
 
-To visualize the weather conditions of 4 major cities on Android. The app displays a card for each city with current temperature and weather condition and also the forecast for the next 5 days.
+An Android app to visualize the weather conditions of 4 major cities where a rock band is touring. The app displays a card for each city with current temperature and weather condition and also the forecast for the next 5 days.
 The app also works offline, but a first successful connection is needed.
+I kept the app as a weather app in case of future functionalities that turn it into a more generic weather application, so it is useful despite the band's tour.
 
 ## Technologies Used
 
