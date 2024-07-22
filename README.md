@@ -36,9 +36,9 @@ I kept the app as a weather app in case of future functionalities that turn it i
     ]
 }`
   - Change `{YOUR-API-KEY}` for the key you got in the [OpeanWeather keys section](https://home.openweathermap.org/api_keys);
-  - Run `Flutter pub get` to install the dependencies;
-  - Run `dart run build_runner build` to generate the models;
-  - Press F5 if using VSCode.
+- Run `Flutter pub get` to install the dependencies;
+- Run `dart run build_runner build` to generate the models;
+- Press F5 if using VSCode.
   - NOTICE: If you are not using VSCode, do not forget to use the `--dart-define` variable passing you key to the `API_KEY` variable, otherwise the app will not work.
 
 ### Enjoy :D
