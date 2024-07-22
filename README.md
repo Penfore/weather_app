@@ -15,6 +15,7 @@ The app also works offline, but a first successful connection is needed.
 - [OpenWeather API account](https://openweathermap.org/api)
   - You will need to register an account, fill the billing information and create or use the API Key.
   - The reason for the need to fill the billing is because the app uses One Call API 3.0. You can use 1000 calls for free.
+  - It takes some time for the key to work after it is first registered. In case of unexpected 401, that's the reason.
 
 ### Steps to tun
 - Clone the repository and enter the folder with your terminal;
@@ -33,7 +34,7 @@ The app also works offline, but a first successful connection is needed.
         },
     ]
 }`
-  - Chane `{YOUR-API-KEY}` for the key you got in the [OpeanWeather keys section](https://home.openweathermap.org/api_keys);
+  - Change `{YOUR-API-KEY}` for the key you got in the [OpeanWeather keys section](https://home.openweathermap.org/api_keys);
   - Run `Flutter pub get` to install the dependencies;
   - Run `dart run build_runner build` to generate the models;
   - Press F5 if using VSCode.
