@@ -24,26 +24,33 @@ class _HomePageState extends ModularInjector<HomePage, HomePageController> {
     Future<void> handleSearchFieldChange() async {
       if (textEditingController.text.isEmpty) {
         cards.clear();
-        controller.fetchWeatherList();
+        controller.initialize();
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Weather'),
-        leading: IconButton(
-          onPressed: () {
-            textEditingController.text = '';
-            handleSearchFieldChange();
-          },
-          icon: const Icon(Icons.refresh),
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              textEditingController.text = '';
+              handleSearchFieldChange();
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+          title: const Text('Weather'),
+          actions: [
+            if (!controller.store.isOnline)
+              const Padding(
+                padding: EdgeInsets.only(right: 12),
+                child: Text('Offline', style: TextStyle(color: Colors.red)),
+              ),
+          ],
         ),
-      ),
-      body: GestureDetector(
-        onTap: () => focusNode.unfocus(),
-        child: Obx(
-          () => Padding(
+        body: GestureDetector(
+          onTap: () => focusNode.unfocus(),
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: SingleChildScrollView(
               child: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:weather_app/app/app_module.dart';
 import 'package:weather_app/app/core/presentation/navigation/routes.dart';
 import 'package:weather_app/app/modules/home/data/datasourcers/internet_datasource.dart';
@@ -25,6 +26,7 @@ class HomeModule extends Module {
   void binds(i) {
     i.addSingleton<HomePageController>(HomePageController.new);
     i.addSingleton<HomeStore>(HomeStore.new);
+    i.addSingleton<FlutterSecureStorage>(FlutterSecureStorage.new);
     i.addSingleton<FetchCitiesWeatherUseCase>(FetchCitiesWeatherUseCaseImpl.new);
     i.addSingleton<WeatherRepository>(WeatherRepositoryImpl.new);
     i.addSingleton<WeatherDatasource>(WeatherDatasourceImpl.new);
