@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/app/core/presentation/stores/state_store.dart';
 import 'package:weather_app/app/modules/home/domain/entities/weather_entity.dart';
@@ -27,4 +28,7 @@ class HomeStore extends StateStore {
   final RxBool _isOnline = true.obs;
   bool get isOnline => _isOnline.value;
   set online(bool value) => _isOnline.value = value;
+
+  final focusNode = FocusNode();
+  final searchFieldController = TextEditingController();
 }

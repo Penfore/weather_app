@@ -18,25 +18,13 @@ class _HomePageState extends ModularInjector<HomePage, HomePageController> {
   Widget build(BuildContext context) {
     List<CityCard> cards = controller.store.cityCards;
     final weatherData = controller.store.weatherData;
-    final focusNode = FocusNode();
-    final textEditingController = TextEditingController();
-
-    Future<void> handleSearchFieldChange() async {
-      if (textEditingController.text.isEmpty) {
-        cards.clear();
-        controller.initialize();
-      }
-    }
 
     return Obx(
       () => Scaffold(
         appBar: AppBar(
           centerTitle: true,
           leading: IconButton(
-            onPressed: () {
-              textEditingController.text = '';
-              handleSearchFieldChange();
-            },
+            onPressed: () async => controller.refreshPage(),
             icon: const Icon(Icons.refresh),
           ),
           title: const Text('Weather'),
@@ -49,7 +37,7 @@ class _HomePageState extends ModularInjector<HomePage, HomePageController> {
           ],
         ),
         body: GestureDetector(
-          onTap: () => focusNode.unfocus(),
+          onTap: controller.unfocus,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: SingleChildScrollView(
@@ -59,13 +47,13 @@ class _HomePageState extends ModularInjector<HomePage, HomePageController> {
                     padding: const EdgeInsets.all(8.0),
                     child: SearchField(
                       hint: 'Search for a city in the list',
-                      controller: textEditingController,
+                      controller: controller.store.searchFieldController,
                       onSuggestionTap: (weather) {
                         cards.clear();
                         cards.add(CityCard(weather: weather.item!));
-                        focusNode.unfocus();
+                        controller.unfocus();
                       },
-                      focusNode: focusNode,
+                      focusNode: controller.store.focusNode,
                       suggestions: weatherData
                           .map(
                             (e) => SearchFieldListItem<WeatherEntity>(
