@@ -23,4 +23,8 @@ class HomeStore extends StateStore {
   final RxList<CityCard> _cityCards = RxList<CityCard>([]);
   List<CityCard> get cityCards => _cityCards;
   set cityCards(List<CityCard> value) => _cityCards.value = value;
+
+  final RxBool _isOnline = true.obs;
+  bool get isOnline => _isOnline.value;
+  set online(bool value) => _isOnline.value = value;
 }

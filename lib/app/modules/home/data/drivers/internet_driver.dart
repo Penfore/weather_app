@@ -1,15 +1,17 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:io';
+
 import 'package:weather_app/app/modules/home/data/datasourcers/internet_datasource.dart';
 
 class InternetDriver implements InternetDatasource {
-  InternetDriver() : connectivity = Connectivity();
-
-  final Connectivity connectivity;
   @override
   Future<bool> get isConnected async {
     try {
-      final connectivityResult = await (connectivity.checkConnectivity());
-      return connectivityResult != [ConnectivityResult.none];
+      final connectivityResult = await InternetAddress.lookup('google.com');
+      if (connectivityResult.isNotEmpty && connectivityResult[0].rawAddress.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       throw Exception('Error ocurred while checking internet connection');
     }
