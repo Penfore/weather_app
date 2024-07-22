@@ -1,5 +1,6 @@
 import 'package:weather_app/app/core/presentation/controllers/page_life_cycle_controller.dart';
 import 'package:weather_app/app/modules/home/domain/entities/weather_entity.dart';
+import 'package:weather_app/app/modules/home/domain/use_cases/check_internet_use_case.dart';
 import 'package:weather_app/app/modules/home/domain/use_cases/fetch_city_weather_use_case.dart';
 import 'package:weather_app/app/modules/home/presentation/stores/home_store.dart';
 import 'package:weather_app/app/modules/home/presentation/widgets/city_card.dart';
@@ -7,10 +8,12 @@ import 'package:weather_app/app/modules/home/presentation/widgets/city_card.dart
 class HomePageController extends PageLifeCycleController {
   HomePageController({
     required this.fetchCityWeatherUseCase,
+    required this.checkInternetUseCase,
     required this.store,
   });
 
   final FetchCitiesWeatherUseCase fetchCityWeatherUseCase;
+  final CheckInternetUseCase checkInternetUseCase;
 
   @override
   final HomeStore store;
