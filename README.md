@@ -2,8 +2,9 @@
 
 ## Objective
 
-To visualize the weather conditions of 4 major cities on Android. The app displays a card for each city with current temperature and weather condition and also the forecast for the next 5 days.
+An Android app to visualize the weather conditions of 4 major cities where a rock band is touring. The app displays a card for each city with current temperature and weather condition and also the forecast for the next 5 days.
 The app also works offline, but a first successful connection is needed.
+I kept the app as a weather app in case of future functionalities that turn it into a more generic weather application, so it is useful despite the band's tour.
 
 ## Technologies Used
 
@@ -35,9 +36,9 @@ The app also works offline, but a first successful connection is needed.
     ]
 }`
   - Change `{YOUR-API-KEY}` for the key you got in the [OpeanWeather keys section](https://home.openweathermap.org/api_keys);
-  - Run `Flutter pub get` to install the dependencies;
-  - Run `dart run build_runner build` to generate the models;
-  - Press F5 if using VSCode.
+- Run `Flutter pub get` to install the dependencies;
+- Run `dart run build_runner build` to generate the models;
+- Press F5 if using VSCode.
   - NOTICE: If you are not using VSCode, do not forget to use the `--dart-define` variable passing you key to the `API_KEY` variable, otherwise the app will not work.
 
 ### Enjoy :D

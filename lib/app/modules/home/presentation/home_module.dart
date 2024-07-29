@@ -24,15 +24,15 @@ class HomeModule extends Module {
 
   @override
   void binds(i) {
-    i.addSingleton<HomePageController>(HomePageController.new);
-    i.addSingleton<HomeStore>(HomeStore.new);
-    i.addSingleton<FlutterSecureStorage>(FlutterSecureStorage.new);
-    i.addSingleton<FetchCitiesWeatherUseCase>(FetchCitiesWeatherUseCaseImpl.new);
-    i.addSingleton<WeatherRepository>(WeatherRepositoryImpl.new);
-    i.addSingleton<WeatherDatasource>(WeatherDatasourceImpl.new);
-    i.addSingleton<CheckInternetUseCase>(CheckInternetUseCaseImpl.new);
-    i.addSingleton<InternetRepository>(InternetRepositoryImpl.new);
-    i.addSingleton<InternetDatasource>(InternetDriver.new);
+    i.add<FlutterSecureStorage>(FlutterSecureStorage.new);
+    i.add<HomeStore>(HomeStore.new);
+    i.add<FetchCitiesWeatherUseCase>(FetchCitiesWeatherUseCaseImpl.new);
+    i.add<WeatherRepository>(WeatherRepositoryImpl.new);
+    i.add<WeatherDatasource>(WeatherDatasourceImpl.new);
+    i.add<CheckInternetUseCase>(CheckInternetUseCaseImpl.new);
+    i.add<InternetRepository>(InternetRepositoryImpl.new);
+    i.add<InternetDatasource>(InternetDriver.new);
+    i.add<HomePageController>(HomePageController.new);
   }
 
   @override
